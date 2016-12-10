@@ -1,13 +1,14 @@
 miaou(function(gui, locals, plugins, ws){
 
-	var LS_PREFIX = "snow.lastFall.";
+	var	DONT_REPLAY = false,
+		LS_PREFIX = "snow.lastFall.";
 
 	plugins.snow = {
 		start: function(){
-			if (gui.mobile) return;
 			ws.on('snow.launch', function(snowfall){
+				if (gui.mobile && snowfall.global) return;
 				var localStorageKey = LS_PREFIX + (snowfall.global ? "G" : locals.room.id);
-				if (+localStorage.getItem(localStorageKey) == snowfall.id) {
+				if (DONT_REPLAY && +localStorage.getItem(localStorageKey) == snowfall.id) {
 					console.log("already played:", snowfall);
 					return;
 				}

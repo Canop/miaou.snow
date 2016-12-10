@@ -84,12 +84,14 @@ exports.registerCommands = function(cb){
 		botfun:onBotCommand,
 		help: "like rain but prettier",
 		detailedHelp: "Exemples:\n"+
+			"`!!snow`\n"+
+			"`!!snow stop`\n"+
 			"`!!snow heavy`\n"+
 			"`!!snow big`\n"+
 			"`!!snow light wind sticky`\n"+
 			"`!!snow blizzard`\n"+
 			"`!!snow wind big sticky`\n"+
-			"Other possible uses can be found by those who know how to search."
+			"Other possible uses can be found by who knows how to search."
 	});
 }
 
