@@ -22,12 +22,12 @@ function stringToOptions(str){
 	var	tokens = new Set(str.toLowerCase().split(/[,\s]+/)),
 		options = {};
 	console.log('tokens:', tokens);
-	if (tokens.has("big")) options.maxRadius = 2.2;
-	else if (tokens.has("small")) options.maxRadius = 1.2;
+	if (tokens.has("big")) options.maxRadius = 4;
+	else if (tokens.has("small")) options.maxRadius = 1.6;
 	if (tokens.has("light")) options.flakeCount = 50;
 	else if (tokens.has("heavy")) options.flakeCount = 1000;
 	if (tokens.has("wind")) options.wind = rnd(-3, 3);
-	if (tokens.has("sticky")) options.stickingRatio = .55;
+	if (tokens.has("sticky")) options.stickingRatio = 1.3;
 	if (tokens.has("blizzard")) {
 		options.wind = rnd(-8, 8);
 		options.flakeCount = rnd(2500, 5000) |0;

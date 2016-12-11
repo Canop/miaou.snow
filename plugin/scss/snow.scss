@@ -1,0 +1,7 @@
+#snow-canvas {
+	opacity: 1;
+	transition: opacity .9s;
+	&.discreet {
+		opacity: .4;
+	}
+}
