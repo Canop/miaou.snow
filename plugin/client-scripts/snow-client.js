@@ -7,7 +7,7 @@ miaou(function(gui, locals, plugins, ws){
 	plugins.snow = {
 		start: function(){
 			ws.on('snow.launch', function(snowfall){
-				console.log("mobile?", gui.mobile);
+				console.log('snowfall:', snowfall);
 				if (gui.mobile) {
 					if (snowfall.global) return;
 					snowfall.options.maxHeightRatio = .03;
@@ -15,7 +15,6 @@ miaou(function(gui, locals, plugins, ws){
 				}
 				var localStorageKey = LS_PREFIX + (snowfall.global ? "G" : locals.room.id);
 				if (DONT_REPLAY && +localStorage.getItem(localStorageKey) == snowfall.id) {
-					console.log("already played:", snowfall);
 					return;
 				}
 				window.snow.start(snowfall.options);

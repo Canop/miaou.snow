@@ -42,19 +42,21 @@ var launch = exports.launch = function(roomId, user, args, isServerAdmin){
 	if (global && !isServerAdmin) {
 		throw "Only a server admin can manage global snow falls";
 	}
-	var sockets = miaou.io.sockets;
-	if (!global) sockets = sockets.in(roomId);
 	var infoKey = global ? 0 : roomId;
 	if (/\bstop\b/i.test(args)) {
 		console.log("snow stops in room", roomId);
 		lastSnowfallPerRoom.delete(infoKey);
-		sockets.emit("snow.stop");
+		if (global) {
+			miaou.io.sockets.emit("snow.stop");
+		} else {
+			miaou.io.sockets.in(roomId).emit("snow.stop");
+		}
 		return;
 	}
 	console.log("snow starts in room", roomId);
 	var snowfall = {
 		id: nextSnowfallId++,
-		sent: Date.now()/1000,
+		sent: Date.now()/1000 |0,
 		author: user.name,
 		global: global,
 		options: stringToOptions(args)
@@ -64,7 +66,11 @@ var launch = exports.launch = function(roomId, user, args, isServerAdmin){
 		throw "Min delay between two snowfalls: " + MIN_DELAY + " seconds";
 	}
 	lastSnowfallPerRoom.set(infoKey, snowfall);
-	sockets.emit("snow.launch", snowfall);
+	if (global) {
+		miaou.io.sockets.emit("snow.launch", snowfall);
+	} else {
+		miaou.io.sockets.in(roomId).emit("snow.launch", snowfall);
+	}
 }
 
 function onCommand(ct){
