@@ -32,7 +32,7 @@ function stringToOptions(str){
 		options.wind = rnd(-8, 8);
 		options.flakeCount = rnd(2500, 5000) |0;
 	}
-	var m = str.match(/#[0-9a-f]{3,8}\b/i);
+	var m = str.match(/#[0-9a-f]{3,6}\b/i);
 	if (m) options.color = m[0];
 	return options;
 }
