@@ -12,6 +12,8 @@ miaou(function(gui, locals, plugins, ws){
 					if (snowfall.global) return;
 					snowfall.options.maxHeightRatio = .03;
 					snowfall.options.flakeCount *= .6;
+				} else {
+					snowfall.options.maxHeightRatio = .9;
 				}
 				var localStorageKey = LS_PREFIX + (snowfall.global ? "G" : locals.room.id);
 				if (DONT_REPLAY && +localStorage.getItem(localStorageKey) == snowfall.id) {
@@ -24,6 +26,14 @@ miaou(function(gui, locals, plugins, ws){
 			});
 			ws.on('snow.stop', function(snowfall){
 				window.snow.stop();
+			});
+			ws.on('snow.salt', function(snowfall){
+				setInterval(function(){
+					var heights = window.snow.ground();
+					for (var i=0; i<heights.length; i++) {
+						heights[i] = Math.max(0, heights[i]*.97-.01);
+					}
+				}, 300);
 			});
 			$(window).keyup(function(){
 				clearTimeout(timer);

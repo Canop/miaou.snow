@@ -99,6 +99,14 @@ exports.registerCommands = function(cb){
 			"`!!snow wind big sticky`\n"+
 			"Other possible uses can be found by who knows how to search."
 	});
+	cb({
+		name: 'salt',
+		fun: function(ct){
+			ct.nostore = true;
+			ct.shoe.emit("snow.salt");
+		},
+		help: "when you don't like snow",
+	});
 }
 
 exports.onNewShoe = function(shoe){
